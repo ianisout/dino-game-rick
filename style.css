@@ -1,0 +1,65 @@
+body {
+    background: #051c36;
+}
+
+@keyframes move {
+    from {background-image: url(walk-1.png);}
+    to {background-image: url(walk-2.png);}
+}
+
+.rick {
+    width: 120px;
+    height: 124px;
+    position: absolute;
+    bottom: 0;
+    animation-name: move;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+}
+
+.doJump {
+    width: 135px;
+    height: 139px;
+    background-image: url(jump.png);
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+}
+
+.cactus {
+    position:absolute;
+    width: 80px;
+    height: 111px;
+    bottom: 0;
+    background-image: url(cactus.png);
+}
+
+.game-over {
+    text-align: center;
+    background-color: #051c36;
+    margin-top: 100px;
+    position: bottom;
+    margin-bottom: 0;
+    background-repeat: no-repeat;
+}
+
+@keyframes slide {
+    from { background-position: 70000%; }
+
+    to { background-position: 0; }
+}
+
+.background {
+    position: absolute;
+    bottom: 0;
+    background-image: url(background.png);
+    background-repeat: repeat-x;
+    animation: slide 2000s infinite linear;
+    width: 100vw;
+    height: 758px;
+}
+
+.lost {
+    visibility: hidden;
+    background-color: #051c36;
+}
