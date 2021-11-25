@@ -2,7 +2,7 @@
 
 Rick and Morty style
 
-![dinorick](https://user-images.githubusercontent.com/76042262/143462833-3457f8a3-d4a1-4647-882f-a1532d304cc1.gif)
+![dinorick](https://user-images.githubusercontent.com/76042262/143464273-e1cd8dff-49b4-4a9e-b2ff-3e909c609b73.gif)
 
 <hr>
 
