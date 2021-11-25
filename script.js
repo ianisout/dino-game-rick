@@ -4,84 +4,80 @@ const background = document.querySelector('.background');
 let isJumping = false;
 let position = 0;
 
-
-
 function handleKeyDown(event) {
-    if (event.keyCode === 32) {
-        if (!isJumping) {
-            jump();
-        }
-    }
-};
+  if (event.keyCode === 32 && !isJumping)  jump();
+}
 
 function handleKeyUp(event) {
-    if (event.keyCode === 32) {
-        let upInterval = setTimeout(() => {
-            document.getElementById('rick').style.visibility='visible';
-        }, 430);
-    }
-};
+  if (event.keyCode === 32) {
+    setTimeout(() => {
+      document.getElementById('rick').style.visibility = 'visible';
+    }, 430);
+  }
+}
 
 function jump() {
-    isJumping = true;
+  isJumping = true;
 
-    let upInterval = setInterval(() => {
-        if (position >= 250) {  //stops it from taking off
-            clearInterval(upInterval);
+  let upInterval = setInterval(() => {
+    if (position >= 300) {
+      clearInterval(upInterval);
 
-            //going down
-            let downInterval = setInterval(() =>{
-                if (position <= 0 ) { // stops it from going to hell
-                    clearInterval(downInterval);
-                    isJumping = false;
-                    document.getElementById('doJump').style.visibility='hidden';
-                } else {
-                    position -= 80;
-                    document.getElementById('doJump').style.visibility='visible';
-                    document.getElementById('doJump').style.bottom = position + 'px';
-                }
-            }, 25);
-
+      let downInterval = setInterval(() => {
+        if (position <= 100) {
+          clearInterval(downInterval);
+          document.getElementById('doJump').style.visibility = 'hidden';
+          isJumping = false;
         } else {
-            //going up
-            position += 20;
-            document.getElementById('rick').style.visibility='hidden';
-            document.getElementById('doJump').style.visibility='visible';
-            document.getElementById('doJump').style.bottom = position + 'px';
-            handleKeyUp;
-        };
-    }, 25);
-}
-
-function createCactus() {
-    const cactus = document.createElement('div'); // creates div on html
-    let cactusPosition = 900; // cactus position
-    let randomTime = Math.round(Math.random() * 6000);
-
-    cactus.classList.add('cactus'); // class of div cactus
-    cactus.style.left = 900 + 'px';
-    background.appendChild(cactus);
-
-    let leftInterval = setInterval(() => {
-        cactus.style.left = cactusPosition + 'px';
-
-        if (cactusPosition < -80) {
-            clearInterval(leftInterval);
-            background.removeChild(cactus);
-        } else if (cactusPosition > 10 && cactusPosition < 80 && position < 80) {
-            //game over
-
-            clearInterval(leftInterval);
-            document.body.innerHTML = '<div class="game-over"><img src="killed.png"></div>';
-        } else {
-            cactusPosition -= 7; //could change difficulty
+          position -= 80;
+          document.getElementById('doJump').style.visibility = 'visible';
+          document.getElementById('doJump').style.bottom = position + 'px';
         }
-    },20);
-
-    setTimeout(createCactus, randomTime); //sending random cactuses into the game
+      }, 25);
+    } else {
+      position += 20;
+      document.getElementById('rick').style.visibility = 'hidden';
+      document.getElementById('doJump').style.visibility = 'visible';
+      document.getElementById('doJump').style.bottom = position + 'px';
+      handleKeyUp;
+    }
+  }, 25);
 }
 
-createCactus();
+let difficultyIncreaseAmnt = 2000;
+let difficultyIncreaseSpd = 8;
+
+function createEnemy() {
+  const enemy = document.createElement('div');
+  let enemyPosition = 1400;
+  let randomTime = Math.round(Math.random() * 2000);
+  console.log(difficultyIncreaseSpd)
+
+  enemy.classList.add('enemy');
+  enemy.style.left = 1400 + 'px';
+  background.appendChild(enemy);
+
+  let leftInterval = setInterval(() => {
+    enemy.style.left = enemyPosition + 'px';
+
+    if (enemyPosition < -130) {
+      clearInterval(leftInterval);
+      background.removeChild(enemy);
+    } else if (enemyPosition > 60 && enemyPosition < 130 && position < 130) {
+      clearInterval(leftInterval);
+      document.body.innerHTML =
+        '<div class="game-over"><img id="test" src="img/killed.png"><a class="btn-restart" onclick="location.reload()">Play again</a></div>';
+    } 
+
+    enemyPosition -= difficultyIncreaseSpd;
+  }, 20);
+
+  setTimeout(createEnemy, randomTime+difficultyIncreaseAmnt);
+  if (difficultyIncreaseAmnt >= 505) difficultyIncreaseAmnt -= Math.round(Math.random() * 500);
+  difficultyIncreaseSpd += Number((Math.random()).toFixed(2));
+}
+
+createEnemy();
 
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('keyup', handleKeyUp);
