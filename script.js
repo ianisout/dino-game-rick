@@ -29,7 +29,7 @@ function jump() {
           document.getElementById('doJump').style.visibility = 'hidden';
           isJumping = false;
         } else {
-          position -= 80;
+          position -= 20;
           document.getElementById('doJump').style.visibility = 'visible';
           document.getElementById('doJump').style.bottom = position + 'px';
         }
@@ -41,7 +41,7 @@ function jump() {
       document.getElementById('doJump').style.bottom = position + 'px';
       handleKeyUp;
     }
-  }, 25);
+  }, 20);
 }
 
 let difficultyIncreaseAmnt = 2000;
